@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 import ShortURL from "../elements/ShortURL";
+import useShortURL from "../../hooks/useShorturl"
 import { API_URL } from "../../config/configuration";
 
 const PATH = "/v1/short-urls";
@@ -21,10 +22,23 @@ const ListShorts = () => {
 
   if (loading) return <div>Cargando...</div>;
 
+  const { deleteShortURL } = useShortURL()
+
+  const wrapDelShortURL = async (id) => {
+    const resp = await deleteShortURL(id)
+    if (resp.status !== 200) {
+      console.log("Ups! no pudimos borrar", resp.status, resp.data)
+      return
+    }
+
+    const cleanShorts = shorts.filter(s => s.id !== id)
+    setShorts(cleanShorts)
+  }
+
   return (
     <>
       {shorts.map((data) => (
-        <ShortURL key={data.id} short={data} />
+        <ShortURL key={data.id} short={data} delShortURL={() => wrapDelShortURL(data.id)} />
       ))}
     </>
   );

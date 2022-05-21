@@ -13,9 +13,10 @@
   },
   "plugins": ["react"],
   "rules": {
+    "semi": 0,
     "quotes": "off",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": "off",
-    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }

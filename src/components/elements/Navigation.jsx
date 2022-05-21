@@ -1,24 +1,76 @@
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Navigate, NavLink } from "react-router-dom";
+import Axios from "axios"
 
 function Navigation() {
+  const [isLogout, setIsLogout] = useState(false)
+
+  const logout = async () => {
+    // TODO make a request to backend to invalidate token
+    Axios.defaults.headers.common.Authorization = ""
+    setIsLogout(true)
+  }
+
+  if (isLogout) {
+    // TODO navigate without lost the menu
+    setIsLogout(false)
+    return <Navigate to="/" />
+  }
+
   return (
     <header>
-      <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
-        <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
-          <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-            <div className="flex space-x-7">
-              <div className="flex items-center space-x-1">
-                <NavLink to="/" className="font-medium text-gray-500 hover:text-gray-900">Home</NavLink>
-                <NavLink to="/create" className="font-medium text-gray-500 hover:text-gray-900">Create</NavLink>
-                <NavLink to="/list" className="font-medium text-gray-500 hover:text-gray-900">My shorts</NavLink>
-                <button type="button" className="link cursor-pointer">Cerrar sesión</button>
-              </div>
+      <div>
+        <div className="bg-gray-100">
+          <nav className="
+              container
+              px-6
+              py-8
+              mx-auto
+              md:flex md:justify-between md:items-center
+            "
+          >
+            <div className="flex items-center justify-between">
+              <NavLink
+                to="/"
+                className="
+                text-xl
+                font-bold
+                text-gray-800
+                md:text-2xl
+                hover:text-blue-400
+                "
+              >
+                Home
+              </NavLink>
             </div>
-          </div>
-        </nav>
+            <ul
+              className="
+                flex-col
+                mt-8
+                space-y-4
+                md:flex
+                md:space-y-0
+                md:flex-row
+                md:items-center
+                md:space-x-10
+                md:mt-0
+              "
+            >
+              <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
+                <NavLink to="/create">Create</NavLink>
+              </li>
+              <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
+                <NavLink to="/list">My shorts</NavLink>
+              </li>
+              <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
+                <button type="button" onClick={logout}>Cerrar sesión</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
-  );
+  )
 }
 
-export default Navigation;
+export default Navigation
