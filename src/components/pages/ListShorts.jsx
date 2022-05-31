@@ -12,15 +12,18 @@ const ListShorts = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Axios.get(`${API_URL}${PATH}`)
+    Axios.get(`${PATH}`)
       .then((response) => {
-        setShorts(response.data.data);
-        setLoading(false);
+        if (response.data.data) {
+          setShorts(response.data.data);
+          setLoading(false);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
 
   if (loading) return <div>Cargando...</div>;
+  // TODO en el catch agregar el mensaje de error
 
   const { deleteShortURL } = useShortURL()
 

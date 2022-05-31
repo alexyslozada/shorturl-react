@@ -1,21 +1,22 @@
-import { useState } from "react";
-import { Navigate, NavLink } from "react-router-dom";
-import Axios from "axios"
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../contexts/authContext";
 
 function Navigation() {
-  const [isLogout, setIsLogout] = useState(false)
+  // const [isLogout, setIsLogout] = useState(false)
 
-  const logout = async () => {
-    // TODO make a request to backend to invalidate token
-    Axios.defaults.headers.common.Authorization = ""
-    setIsLogout(true)
-  }
+  // const logout = async () => {
+  //   // TODO make a request to backend to invalidate token
+  //   Axios.defaults.headers.common.Authorization = ""
+  //   setIsLogout(true)
+  // }
 
-  if (isLogout) {
-    // TODO navigate without lost the menu
-    setIsLogout(false)
-    return <Navigate to="/" />
-  }
+  // if (isLogout) {
+  //   // TODO navigate without lost the menu
+  //   setIsLogout(false)
+  //   return <Navigate to="/" />
+  // }
+  const { isLogged, logout } = useContext(AuthContext)
 
   return (
     <header>
@@ -56,15 +57,20 @@ function Navigation() {
                 md:mt-0
               "
             >
-              <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
-                <NavLink to="/create">Create</NavLink>
-              </li>
-              <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
-                <NavLink to="/list">My shorts</NavLink>
-              </li>
-              <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
-                <button type="button" onClick={logout}>Cerrar sesión</button>
-              </li>
+              { isLogged.isAuth
+              && (
+              <>
+                <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
+                  <NavLink to="/create">Create</NavLink>
+                </li>
+                <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
+                  <NavLink to="/list">My shorts</NavLink>
+                </li>
+                <li className="text-sm font-bold text-gray-800 hover:text-blue-400">
+                  <button type="button" onClick={logout}>Cerrar sesión</button>
+                </li>
+              </>
+              )}
             </ul>
           </nav>
         </div>

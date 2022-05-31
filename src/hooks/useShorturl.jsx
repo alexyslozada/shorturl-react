@@ -1,7 +1,5 @@
 import Axios from "axios"
 
-import { API_URL } from "../config/configuration";
-
 const PATH = "/v1/short-urls";
 
 const useShortURL = () => {
@@ -9,7 +7,7 @@ const useShortURL = () => {
 
   const createShortURL = async (short) => {
     try {
-      const action = await Axios.post(`${API_URL}${PATH}`, short)
+      const action = await Axios.post(`${PATH}`, short)
       response.status = action.status
       response.data = action.data.data
 
@@ -24,7 +22,7 @@ const useShortURL = () => {
 
   const deleteShortURL = async (id) => {
     try {
-      const action = await Axios.delete(`${API_URL}${PATH}/id/${id}`)
+      const action = await Axios.delete(`${PATH}/id/${id}`)
       response.status = action.status
 
       return response
