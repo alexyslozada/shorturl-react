@@ -1,3 +1,4 @@
+// eslint-disable-next-line react/prop-types
 const ShortURL = ({ short, delShortURL }) => {
   let dateFormat = new Date().toLocaleString()
   if (short.created_at > 0) {

@@ -3,7 +3,6 @@ import Axios from "axios";
 
 import ShortURL from "../elements/ShortURL";
 import useShortURL from "../../hooks/useShorturl"
-import { API_URL } from "../../config/configuration";
 
 const PATH = "/v1/short-urls";
 
@@ -29,7 +28,7 @@ const ListShorts = () => {
 
   const wrapDelShortURL = async (id) => {
     const resp = await deleteShortURL(id)
-    if (resp.status !== 200) {
+    if (resp.status !== 204) {
       console.log("Ups! no pudimos borrar", resp.status, resp.data)
       return
     }

@@ -1,13 +1,21 @@
 /* eslint-disable */
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import Axios from "axios"
 
 const PATH = "/v1/login";
+const TOKEN_KEY = "token"
 
-export const AuthContext = createContext({ isAuth: false })
+export const AuthContext = createContext({ isLogged: {isAuth: false} })
 
 const AuthProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState({ isAuth: false })
+
+  useEffect(() => {
+    // We are assuming that if we have a token then we are authenticated
+    if (!!localStorage.getItem(TOKEN_KEY)) {
+      setIsLogged({isAuth: true})
+    }
+  }, [])
 
   const login = async (user) => {
     const response = {}
@@ -16,7 +24,8 @@ const AuthProvider = ({ children }) => {
       response.status = resp.status
 
       // Set token as default authorization in all request
-      Axios.defaults.headers.common.Authorization = `Bearer ${resp.data.data}`
+      localStorage.setItem(TOKEN_KEY, resp.data.data)
+      Axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(TOKEN_KEY)}`
       setIsLogged({isAuth: true})
     } catch (err) {
       console.log(err)
@@ -29,6 +38,7 @@ const AuthProvider = ({ children }) => {
   }
 
   const logout = () => {
+    localStorage.removeItem(TOKEN_KEY)
     Axios.defaults.headers.common.Authorization = ""
     setIsLogged({isAuth: false})
     window.location.href = "/"
