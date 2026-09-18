@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Production and develop environments
+# Production and develop environments (Este es un cambios en este comentario nuevo...)
 .env.development
 .env.production
 .env.local
