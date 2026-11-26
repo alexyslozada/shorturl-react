@@ -10,3 +10,9 @@ Este es un proyecto hecho en React.js que permite conectarse a la API provista p
 ## Auspiciadores 
 
 - EDteam
+
+## Estudiante
+
+- Walter Milla : El mejor
+- Leonella Milla
+- Otros
