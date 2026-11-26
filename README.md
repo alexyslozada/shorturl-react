@@ -13,4 +13,4 @@ Este es un proyecto hecho en React.js que permite conectarse a la API provista p
 
 ## Estudiante
 
-- Walter Milla
+- Walter Milla : El mejor 
