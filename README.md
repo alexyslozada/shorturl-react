@@ -15,3 +15,4 @@ Este es un proyecto hecho en React.js que permite conectarse a la API provista p
 
 - Walter Milla : El mejor
 - Leonella Milla
+- Otros
